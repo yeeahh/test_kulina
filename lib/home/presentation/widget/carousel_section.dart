@@ -15,7 +15,7 @@ class CarouselSection extends StatelessWidget {
           aspectRatio: 2.0,
           enlargeCenterPage: true,
         ),
-        items: homeCubit.dataBannerCarousel!
+        items: homeCubit.dataBannerCarousel
             .map((item) => Container(
                   child: Container(
                     margin: EdgeInsets.all(5.0),
