@@ -11,7 +11,7 @@ class HomeNetworkImpl extends HomeNetwork {
     try {
       Response<String> response =
           await dio.get("http://food.mockable.io/v1/banner");
-      return HomeModel.fromJson(jsonDecode(response.data ?? "")['data']);
+      return HomeModel.fromJson(jsonDecode(response.data ?? ""));
     } on DioError catch (e) {
       throw Exception(e);
     }

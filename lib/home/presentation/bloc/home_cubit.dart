@@ -4,19 +4,20 @@ import 'package:test_kulina/home/domain/repositories/home_repository.dart';
 import 'package:test_kulina/home/presentation/bloc/home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitial());
+  final HomeRepository homeRepository;
+  HomeCubit({required this.homeRepository}) : super(HomeInitial());
 
-  HomeRepository? homeRepository;
   HomeModel? data;
-  List<Datum>? dataBannerCarousel;
-  List<Datum>? dataBannerSpecial;
+  List<Datum> dataBannerCarousel = [];
+  List<Datum> dataBannerSpecial = [];
 
   void getBannerData() async {
+    emit(HomeInitial());
     try {
-      this.data = await homeRepository?.fetchBannerData();
+      data = await homeRepository.fetchBannerData();
       if (data != null) {
-        getBannerSpecial();
-        emit(HomeSuccess(data));
+        getBannerCategory();
+        emit(HomeSuccess());
       } else {
         emit(HomeError());
       }
@@ -25,13 +26,15 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  void getBannerSpecial() async {
-    data?.data.forEach((item) {
+  void getBannerCategory() {
+    emit(HomeInitial());
+    for (Datum item in data!.data) {
       if (item.name.contains("Small Banner")) {
-        dataBannerSpecial?.add(item);
-      } else if (item.name.contains("Top Banner 1")) {
-        dataBannerCarousel?.add(item);
+        dataBannerSpecial.add(item);
+      } else if (item.name.contains("Top Banner")) {
+        dataBannerCarousel.add(item);
       }
-    });
+    }
+    emit(BannerSuccess());
   }
 }

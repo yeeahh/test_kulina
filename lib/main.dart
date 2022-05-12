@@ -1,9 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:test_kulina/locator.dart';
 
 import 'home/presentation/page/home_page.dart';
 
 void main() {
   runApp(const MyApp());
+  runZoned(() async {
+    await setUpHome();
+  });
 }
 
 class MyApp extends StatelessWidget {

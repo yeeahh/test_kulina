@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:test_kulina/home/data/model/home_model.dart';
 
 class HomeState extends Equatable {
   @override
@@ -17,9 +16,11 @@ class HomeError extends HomeState {
 }
 
 class HomeSuccess extends HomeState {
-  final HomeModel? banner;
-  HomeSuccess(this.banner);
-
   @override
-  String toString() => 'HomeSuccess { banner : $banner }';
+  String toString() => 'HomeSuccess';
+}
+
+class BannerSuccess extends HomeState {
+  @override
+  String toString() => 'BannerSuccess';
 }
